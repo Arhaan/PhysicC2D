@@ -1,22 +1,24 @@
 #include <cmath>
-
 struct Vec2d{
     double x, y;
     Vec2d(){
         x = y = 0;
     }
 
-    Vec2d(double a, double b): x(a), y(b){
-    
+    Vec2d(double a, double b): x(a), y(b){}
+    Vec2d operator+(const Vec2d &b)const{
+        return Vec2d((x+b.x)/2, (y+b.y)/2);
     }
-
+    Vec2d operator/(double a){
+        return Vec2d(x/a, y/a);
+    }
 };
 
-Vec2d min(Vec2d a, Vec2d b){
+Vec2d vmin(Vec2d a, Vec2d b){
     return Vec2d(std::fmin(a.x, b.x), std::fmin(a.y, b.y));
 }
 
-Vec2d max(Vec2d a, Vec2d b){
+Vec2d vmax(Vec2d a, Vec2d b){
     return Vec2d(std::fmax(a.x, b.x), std::fmax(a.y, b.y));
 }
 
@@ -38,7 +40,11 @@ class AABR{
             }
 
             AABR getEnclosingBA(AABR other){ // This gives error with g++ if we make this a subclass of BaseBA but not with clang, TODO
-                    return AABR(min(bottomleft, other.bottomleft), max(topright, other.topright));
+                    return AABR(vmin(bottomleft, other.bottomleft), vmax(topright, other.topright));
+            }
+
+            Vec2d centre(){
+                return (bottomleft + topright)/2;
             }
 };
 
