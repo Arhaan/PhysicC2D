@@ -3,7 +3,7 @@
 #include <vector>
 namespace Physicc2D{
         class Collider{
-                private:
+                protected:
                         glm::vec2 m_position, m_scale; // m_position is the position of axis about which it is rotated, m_scale is a scaling factor in the two directions.
                         double m_rotation; //angle about which it is rotated about the z-axis;
                 public:
@@ -23,9 +23,9 @@ namespace Physicc2D{
                         BoxCollider(glm::vec2 position = glm::vec2(0),
                                         double rotation = 0,
                                         glm::vec2 scale = glm::vec2(1));
-                        AABB getAABB();
+                        AABB getAABB() const;
                         /* OBB getOBB(); */
-                        glm::vec2 getCentroid();
+                        glm::vec2 getCentroid() const; 
         };
 
 }

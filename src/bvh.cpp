@@ -9,29 +9,29 @@ namespace Physicc2D{
                 if(axis == Axis::R){
                         axis = getAxisForCut(start, end);
                 }
-                auto sort_func = [](AABB &a, AABB &b){
+                auto sort_func = [](RigidBody &a, RigidBody &b){
                         return(a.centre().x < b.centre().x);
                 };
 
                 if(axis == Axis::Y){
                         // y axis
-                        auto sort_func = [](AABB &a, AABB &b){
+                        auto sort_func = [](RigidBody &a, RigidBody &b){
                                 return(a.centre().y < b.centre().y);
                         }; 
                 }
 
-                std::sort(std::next(m_bounding_boxes.begin(), start),std::next(m_bounding_boxes.begin(), end+1) , sort_func);
+                std::sort(std::next(m_rigidbody_list.begin(), start),std::next(m_rigidbody_list.begin(), end+1) , sort_func);
                 return (start+(end-start)/2); // Split by median object (tree will be more balanced)
         }
 
 
 
         BVH::Axis BVH::getAxisForCut(int start, int end){
-                glm::vec2 min(m_bounding_boxes[start].centre());
-                glm::vec2 max(m_bounding_boxes[start].centre());
+                glm::vec2 min(m_rigidbody_list[start].centre());
+                glm::vec2 max(m_rigidbody_list[start].centre());
                 for(int i = start; i<= end; i++){
-                        min = glm::min(min, m_bounding_boxes[i].centre());
-                        max  = glm::max (max, m_bounding_boxes[i].centre());
+                        min = glm::min(min, m_rigidbody_list[i].centre());
+                        max  = glm::max (max, m_rigidbody_list[i].centre());
                 }
 
                 glm::vec2 spreads = max-min;
@@ -45,7 +45,7 @@ namespace Physicc2D{
 
                 if(start == end){
                         // Leaf node
-                        node->volume = m_bounding_boxes[start];
+                        node->volume = m_rigidbody_list[start].getAABB();
                         node->is_leaf = true;
                 }
 
@@ -69,9 +69,9 @@ namespace Physicc2D{
 
         AABB BVH::computeBV(int start, int end){
                 // Compute the BV that includes the objects between start and end
-                AABB bv = m_bounding_boxes[start];
+                AABB bv = m_rigidbody_list[start].getAABB();
                 for(int i = start+1; i<= end; i++){
-                        bv = bv.getEnclosingBV(m_bounding_boxes[i]);
+                        bv = bv.getEnclosingBV(m_rigidbody_list[i].getAABB());
                 }
 
                 return bv;
@@ -108,9 +108,9 @@ namespace Physicc2D{
 
 
                         if(stack.size() == 0) break; 
-                        std::pair<BVHNode*, BVHNode*> newvals = stack.pop_back(); //TODO: See syntax
-                        a = newvals.first;
-                        b = newvals.second;
+                        /* std::pair<BVHNode*, BVHNode*> newvals = stack.pop_back(); //TODO: See syntax */
+                        /* a = newvals.first; */
+                        /* b = newvals.second; */
                 }
         }
 

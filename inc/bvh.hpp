@@ -1,5 +1,6 @@
 #include <vector>
-#include "boundingvolume.hpp"
+/* #include "boundingvolume.hpp" */
+#include "rigidbody.hpp"
 #include "glm/glm.hpp"
 
 namespace Physicc2D{
@@ -16,7 +17,7 @@ namespace Physicc2D{
 
         class BVH{
                 private:
-                        std::vector<AABB> m_bounding_boxes;
+                        std::vector<RigidBody> m_rigidbody_list;
                         BVHNode* m_head;
                         enum Axis{
                                 X,
@@ -29,9 +30,9 @@ namespace Physicc2D{
                         AABB computeBV(int start, int end); // calculate the area that is occupied by the bounding areas between the indices start and end in the vector
                         void ReportCollisionsDFS(); // Find all the ppssible collisions
                 public:
-                        BVH(std::vector<AABB> bounding_boxes): m_bounding_boxes(bounding_boxes){}
+                        BVH(std::vector<RigidBody> rigidbody_list):m_rigidbody_list(rigidbody_list){}
                         void buildTree(){ // Build the tree
-                                buildTreeTopDown(m_head, 0, m_bounding_boxes.size() - 1);
+                                buildTreeTopDown(m_head, 0, m_rigidbody_list.size() - 1);
                         }
         };
 

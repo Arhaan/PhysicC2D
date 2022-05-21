@@ -10,4 +10,12 @@ namespace Physicc2D{
                 m_vertices[2] = glm::vec3(scale.x* 0.5f, -scale.y*0.5f, 0);
                 m_vertices[3] = glm::vec3(-scale.x* 0.5f, -scale.y*0.5f, 0);
         }
+
+        AABB BoxCollider::getAABB() const{
+               return AABB(); // TODO
+        }
+
+        glm::vec2 BoxCollider::getCentroid() const{
+            return m_position;
+        }
 }
