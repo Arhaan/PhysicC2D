@@ -37,16 +37,25 @@ namespace Physicc2D{
                 public:
                         AABB(): bottomleft(), topright(){}
                         AABB(glm::vec2 bl, glm::vec2 tr): bottomleft(bl), topright(tr){}
-                        double getArea(){
+                        double getArea() const{
                                 return abs((bottomleft.x - topright.x) * (bottomleft.y - topright.y));
                         }
 
-                        AABB getEnclosingBV(AABB other){ // This gives error with g++ if we make this a subclass of BaseBV but not with clang, TODO
+                        AABB getEnclosingBV(const AABB& other) const{ // This gives error with g++ if we make this a subclass of BaseBV but not with clang, TODO
                                 return AABB(glm::min(bottomleft, other.bottomleft), glm::max(topright, other.topright));
                         }
 
-                        glm::vec2 centre(){
+                        glm::vec2 centre() const{
                                 return (bottomleft + topright)*(float)(1/2.0);
+                        }
+
+                        bool overlapsWith(const AABB& other) const{
+                            if(this->bottomleft.x > other.bottomleft.x){
+                                return (this->topright.y > other.bottomleft.y && this->topright.y < other.topright.y);
+                            }
+                            else{
+                                return (other.topright.y > this->bottomleft.y && other.topright.y < this->topright.y);
+                            }
                         }
         };
 
