@@ -40,7 +40,7 @@ class AABB{
                 return abs((bottomleft.x - topright.x) * (bottomleft.y - topright.y));
             }
 
-            AABB getEnclosingBA(AABB other){ // This gives error with g++ if we make this a subclass of BaseBV but not with clang, TODO
+            AABB getEnclosingBV(AABB other){ // This gives error with g++ if we make this a subclass of BaseBV but not with clang, TODO
                     return AABB(glm::min(bottomleft, other.bottomleft), glm::max(topright, other.topright));
             }
 
