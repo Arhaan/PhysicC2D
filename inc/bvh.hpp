@@ -10,6 +10,7 @@ namespace Physicc2D{
                 BVHNode *left = nullptr;
                 BVHNode *right = nullptr;
                 AABB volume;
+                RigidBody *body = nullptr;
                 bool is_leaf = false;
         };
 

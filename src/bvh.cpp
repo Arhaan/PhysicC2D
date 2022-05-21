@@ -46,6 +46,7 @@ namespace Physicc2D{
                 if(start == end){
                         // Leaf node
                         node->volume = m_rigidbody_list[start].getAABB();
+                        node->body = &m_rigidbody_list[start];
                         node->is_leaf = true;
                 }
 
