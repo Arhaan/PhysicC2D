@@ -19,7 +19,7 @@ int BVH::sort(int start, int end, BVH::Axis axis){
     }
 
     std::sort(std::next(m_bounding_boxes.begin(), start),std::next(m_bounding_boxes.begin(), end+1) , sort_func);
-    return (start+(end-start)/2);
+    return (start+(end-start)/2); // Split by median object (tree will be more balanced)
 }
 
 
@@ -38,6 +38,7 @@ BVH::Axis BVH::getAxisForCut(int start, int end){
 }
 
 void BVH::buildTreeTopDown(BVHNode* node, int start, int end){
+    // Builds the bvh in a topdown manner, using recursion
     // We assume everything in node is unitialised at the start of this function, apart from node->parent
 
     if(start == end){
@@ -59,15 +60,13 @@ void BVH::buildTreeTopDown(BVHNode* node, int start, int end){
 
 			buildTreeTopDown(leftNode, start, splitindex);
 			buildTreeTopDown(rightNode, splitindex + 1, end);
-
     }
-    
-
 }
 
 
 
 AABB BVH::computeBV(int start, int end){
+        // Compute the BV that includes the objects between start and end
         AABB bv = m_bounding_boxes[start];
         for(int i = start+1; i<= end; i++){
                 bv = bv.getEnclosingBV(m_bounding_boxes[i]);
