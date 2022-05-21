@@ -27,7 +27,7 @@ namespace Physicc2D{
                         void buildTreeTopDown(BVHNode* node, int start, int end); // Build the tree starting at node, and using only the AABRs in between start and end
                         Axis getAxisForCut(int start, int end); //By looking at the spread, get the axis cutting along which we'll get the more symmetric rectangles
                         AABB computeBV(int start, int end); // calculate the area that is occupied by the bounding areas between the indices start and end in the vector
-                        /* int split(int start, int end); // sort m_bounding_boxes and return the value at which to bisect the interval. The returned value has to be kept in the left interval */
+                        void ReportCollisionsDFS(); // Find all the ppssible collisions
                 public:
                         BVH(std::vector<AABB> bounding_boxes): m_bounding_boxes(bounding_boxes){}
                         void buildTree(){ // Build the tree

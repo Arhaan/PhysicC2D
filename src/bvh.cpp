@@ -1,5 +1,6 @@
 #include "bvh.hpp"
-
+#include <vector>
+#include <utility>
 #include "glm/glm.hpp"
 
 namespace Physicc2D{
@@ -75,5 +76,47 @@ namespace Physicc2D{
 
                 return bv;
         }
+
+        bool descendA(BVHNode* A, BVHNode* B){ // Should this be made inline?
+            if(A->is_leaf) return false;
+            if(B->is_leaf) return true;
+            return A->volume.getVolume() > B->volume.getVolume(); // Descend according to larger volume. See page 255 of real time collison detection  by Christer Ericsen 2005
+        }
+
+        void BVH::ReportCollisionsDFS(){
+                std::vector<std::pair<BVHNode*, BVHNode*> > stack;
+                BVHNode* a = m_head->left, *b = m_head->right;
+                while(true){
+                        if(a->volume.overlapsWith(b->volume)){
+                            if(a->is_leaf && b->is_leaf){
+                                // Do narrowphase
+                                // TODO
+                                return;
+                            }
+                            else if(descendA(a, b)){
+                                stack.push_back(std::make_pair(a->right, b));
+                                a = a->left;
+                                continue;
+                            }
+                            else{
+                                stack.push_back(std::make_pair(a, b->right));
+                                b = b->left;
+                                continue;
+                            }
+                        }
+
+
+
+                        if(stack.size() == 0) break; 
+                        std::pair<BVHNode*, BVHNode*> newvals = stack.pop_back(); //TODO: See syntax
+                        a = newvals.first;
+                        b = newvals.second;
+                }
+        }
+
+
+
+
+
 
 }

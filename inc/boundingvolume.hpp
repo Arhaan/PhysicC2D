@@ -37,7 +37,7 @@ namespace Physicc2D{
                 public:
                         AABB(): bottomleft(), topright(){}
                         AABB(glm::vec2 bl, glm::vec2 tr): bottomleft(bl), topright(tr){}
-                        double getArea() const{
+                        double getVolume() const{
                                 return abs((bottomleft.x - topright.x) * (bottomleft.y - topright.y));
                         }
 
@@ -57,6 +57,7 @@ namespace Physicc2D{
                                 return (other.topright.y > this->bottomleft.y && other.topright.y < this->topright.y);
                             }
                         }
+
         };
 
 }
