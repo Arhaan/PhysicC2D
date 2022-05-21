@@ -1,5 +1,7 @@
 #include "collider.hpp"
-class RigidBody{
-    private:
-            Collider m_collider;
-};
+namespace Physicc2D{
+        class RigidBody{
+                private:
+                        Collider m_collider;
+        };
+}
