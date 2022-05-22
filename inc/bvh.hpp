@@ -1,3 +1,6 @@
+#ifndef __BVH_H__
+#define __BVH_H__
+
 #include <vector>
 /* #include "boundingvolume.hpp" */
 #include "rigidbody.hpp"
@@ -38,3 +41,4 @@ namespace Physicc2D{
         };
 
 }
+#endif // __BVH_H__

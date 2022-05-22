@@ -1,3 +1,5 @@
+#ifndef __BOUNDINGVOLUME_H__
+#define __BOUNDINGVOLUME_H__
 #include <cmath>
 #include "glm/glm.hpp"
 namespace Physicc2D{
@@ -61,3 +63,4 @@ namespace Physicc2D{
         };
 
 }
+#endif //__BOUNDINGVOLUME_H__

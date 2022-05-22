@@ -1,3 +1,7 @@
+#ifndef __RIGIDBODY_H__
+#define __RIGIDBODY_H__
+
+
 #include "collider.hpp"
 #include <string>
 namespace Physicc2D{
@@ -23,3 +27,6 @@ namespace Physicc2D{
                         }
         };
 }
+
+#endif // __RIGIDBODY_H__
+

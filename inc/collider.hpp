@@ -1,3 +1,5 @@
+#ifndef __COLLIDER_H__
+#define __COLLIDER_H__
 #include "boundingvolume.hpp"
 #include "glm/glm.hpp"
 #include <vector>
@@ -29,3 +31,4 @@ namespace Physicc2D{
         };
 
 }
+#endif // __COLLIDER_H__
