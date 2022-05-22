@@ -32,12 +32,15 @@ namespace Physicc2D{
                         void buildTreeTopDown(BVHNode* node, int start, int end); // Build the tree starting at node, and using only the AABRs in between start and end
                         Axis getAxisForCut(int start, int end); //By looking at the spread, get the axis cutting along which we'll get the more symmetric rectangles
                         AABB computeBV(int start, int end); // calculate the area that is occupied by the bounding areas between the indices start and end in the vector
-                        void ReportCollisionsDFS(); // Find all the ppssible collisions
                 public:
-                        BVH(std::vector<RigidBody> rigidbody_list):m_rigidbody_list(rigidbody_list){}
+                        BVH(std::vector<RigidBody> rigidbody_list):m_rigidbody_list(rigidbody_list){
+                        
+                                m_head = new BVHNode();
+                        }
                         void buildTree(){ // Build the tree
                                 buildTreeTopDown(m_head, 0, m_rigidbody_list.size() - 1);
                         }
+                        void ReportCollisionsDFS(); // Find all the ppssible collisions
         };
 
 }
