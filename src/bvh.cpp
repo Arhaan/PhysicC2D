@@ -92,7 +92,7 @@ namespace Physicc2D{
                             if(a->is_leaf && b->is_leaf){
                                 // Do narrowphase
                                 // TODO
-                                return;
+                                    /* std::cout << a->body.name << " and " << b->body.name << std::endl; */
                             }
                             else if(descendA(a, b)){
                                 stack.push_back(std::make_pair(a->right, b));
@@ -108,10 +108,11 @@ namespace Physicc2D{
 
 
 
-                        if(stack.size() == 0) break; 
-                        /* std::pair<BVHNode*, BVHNode*> newvals = stack.pop_back(); //TODO: See syntax */
-                        /* a = newvals.first; */
-                        /* b = newvals.second; */
+                        if(stack.empty()) break; 
+                        std::pair<BVHNode*, BVHNode*> newvals = stack.back(); 
+                        stack.pop_back();
+                        a = newvals.first;
+                        b = newvals.second;
                 }
         }
 
