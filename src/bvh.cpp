@@ -1,6 +1,7 @@
 #include "bvh.hpp"
 #include <vector>
 #include <utility>
+#include <iostream>
 #include "glm/glm.hpp"
 
 namespace Physicc2D{
@@ -92,7 +93,7 @@ namespace Physicc2D{
                             if(a->is_leaf && b->is_leaf){
                                 // Do narrowphase
                                 // TODO
-                                    /* std::cout << a->body.name << " and " << b->body.name << std::endl; */
+                                    std::cout << a->body->getName() << " and " << b->body->getName() << std::endl;
                             }
                             else if(descendA(a, b)){
                                 stack.push_back(std::make_pair(a->right, b));
