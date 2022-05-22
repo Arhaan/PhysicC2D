@@ -52,11 +52,11 @@ namespace Physicc2D{
                         }
 
                         bool overlapsWith(const AABB& other) const{
-                            if(this->bottomleft.x > other.bottomleft.x){
-                                return (this->topright.y > other.bottomleft.y && this->topright.y < other.topright.y);
+                            if(this->bottomleft.x >= other.bottomleft.x){
+                                return (this->topright.y >= other.bottomleft.y && this->topright.y <= other.topright.y);
                             }
                             else{
-                                return (other.topright.y > this->bottomleft.y && other.topright.y < this->topright.y);
+                                return (other.topright.y >= this->bottomleft.y && other.topright.y <= this->topright.y);
                             }
                         }
 
