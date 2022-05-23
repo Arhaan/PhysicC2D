@@ -117,6 +117,17 @@ namespace Physicc2D{
                 }
         }
 
+        void BVH::printTable(BVHNode *node){
+            if(node->is_leaf){
+                    std::cout << node->body->getName()  << std::endl;
+            }
+            else{
+                std::cout << "Branching"  << std::endl;
+                printTable(node->left);
+                printTable(node->right);
+
+            }
+        }
 
 
 
