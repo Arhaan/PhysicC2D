@@ -15,13 +15,13 @@ int main()
         rb_list.push_back(b2);
         rb_list.push_back(b3);
 
-        cout << "RB_list created"  << endl;
+        // cout << "RB_list created"  << endl;
         Physicc2D::BVH bvh(rb_list);
         bvh.buildTree();
-        cout << "Tree built"  << endl;
-        /* bvh.printTable(); */
+        // cout << "Tree built"  << endl;
+        //bvh.printTable();
         bvh.ReportCollisionsDFS();
-        cout << "Reported Collisions"  << endl;
+        // cout << "Reported Collisions"  << endl;
 
 	return 0;
 }

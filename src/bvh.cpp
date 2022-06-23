@@ -85,10 +85,7 @@ namespace Physicc2D{
             return A->volume.getVolume() > B->volume.getVolume(); // Descend according to larger volume. See page 255 of real time collison detection  by Christer Ericsen 2005
         }
 
-        void BVH::ReportCollisionsDFS(){
-                std::vector<std::pair<BVHNode*, BVHNode*> > stack;
-                BVHNode* a = m_head->left, *b = m_head->right;
-                while(true){
+        void BVH::ReportCollisionsDFS(BVHNode *a, BVHNode* b){
                         if(a->volume.overlapsWith(b->volume)){
                             if(a->is_leaf && b->is_leaf){
                                 // Do narrowphase
@@ -96,25 +93,28 @@ namespace Physicc2D{
                                     std::cout << a->body->getName() << " and " << b->body->getName() << std::endl;
                             }
                             else if(descendA(a, b)){
-                                stack.push_back(std::make_pair(a->right, b));
-                                a = a->left;
-                                continue;
+                                BVH::ReportCollisionsDFS(a->right, b);
+                                BVH::ReportCollisionsDFS(a->left, b);
+                                BVH::ReportCollisionsDFS(a->right, a->left);
                             }
                             else{
-                                stack.push_back(std::make_pair(a, b->right));
-                                b = b->left;
-                                continue;
+                                BVH::ReportCollisionsDFS(b->right, a);
+                                BVH::ReportCollisionsDFS(b->right, a);
+                                BVH::ReportCollisionsDFS(b->left, b->right);
                             }
+                        }
+                        else{
+
+                                if(!a->is_leaf){
+                                        BVH::ReportCollisionsDFS(a->right, a->left);
+                                }
+                                if(!b->is_leaf){
+                                        BVH::ReportCollisionsDFS(b->left, b->right);
+                                }
                         }
 
 
 
-                        if(stack.empty()) break; 
-                        std::pair<BVHNode*, BVHNode*> newvals = stack.back(); 
-                        stack.pop_back();
-                        a = newvals.first;
-                        b = newvals.second;
-                }
         }
 
         void BVH::printTable(BVHNode *node){
